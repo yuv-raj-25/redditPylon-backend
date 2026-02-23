@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: redditpylon_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: reddit
+      POSTGRES_PASSWORD: reddit123
+      POSTGRES_DB: redditpylon
+    ports:
+      - "5432:5432"
+    volumes:
+      - redditpylon_postgres_data:/var/lib/postgresql/data
+    networks:
+      - redditpylon_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: redditpylon_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redditpylon_redis_data:/data
+    networks:
+      - redditpylon_network
+
+volumes:
+  redditpylon_postgres_data:
+  redditpylon_redis_data:
+
+networks:
+  redditpylon_network:
+    driver: bridge
