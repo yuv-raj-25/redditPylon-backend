@@ -18,6 +18,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+#agents 
+./agents
+./.agent
+agents
+agent
+.agents
+.agent
 # Coverage
 coverage/
 .nyc_output/
